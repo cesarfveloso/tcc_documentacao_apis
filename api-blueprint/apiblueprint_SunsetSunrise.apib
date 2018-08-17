@@ -1,0 +1,59 @@
+FORMAT: 1A
+HOST: https://api.sunrise-sunset.org
+
+# Sunset and Sunrise Times API
+Essa API gratuita fornece os horários do nascer do sol e do pôr do sol dada uma latitude e longitude
+
+# Group Horários do nascer e do pôr do sol
+Detalhes sobre os horários do nascer e do pôr do sol
+
+## /json{?lat,lng,date,callback,formatted}
+Recurso principal da API
+
++ Parameters    
+    + lat: `36.7201600` (number, required) - Latitude no formato decimal
+    + lng: `-4.4203400` (number, required) - Longitude no formato decimal
+    + date: today (optional) - Datas no formato YYYY-MM-DD. Também são aceitos os formatos apresentados <a href="http://php.net/manual/en/datetime.formats.date.php">aqui</a> e <a href="http://php.net/manual/en/datetime.formats.relative.php">aqui</a>. Se não informado será considerado a data corrente
+    + callback: myCallback (optional) - Função chamada no callback da resposta
+    + formatted: 0 (number, optional) - Define se a resposta será formatada. Se 0 não será, se 1 os valores de data serão mostrados no padrão ISO 8601 e a duração do dia em segundos. Se não informado será considerado o valor 1
+
+### Retorna os horários do nascer e do pôr do sol [GET]
+Esse operador retorna um objeto com informações dos horários do nascer e do pôr do sol dada uma certa latitude e longitude informada
+
++ Response 200 (application/json)
+Indica que nenhum erro ocorreu
+    + Attributes (Status200)
+
++ Response 400 (application/json)
+Indica que os parâmetros lat e lng não foram informados ou são inválidos
+    + Attributes (Status400)
+
++ Response 500 (application/json)
+Indica que a requisição não foi processada pelo servidor
+    + Attributes (Status500)
+
+# Data Structures
+
+## Status200
++ results (results) - Um objeto com o resultado obtido pela requisição
++ status: OK (string) - Status da requisição
+
+## Status400
++ results: ` ` (string) - String vazia
++ status: INVALID_REQUEST ou INVALID_DATE (string) - Status da requisição
+
+## Status500
++ results: ` ` (string) - String vazia
++ status: UNKNOWN_ERROR (string) - Status da requisição
+
+## results
++ `sunrise`: `7:27:02 AM` (string) - Data hora no fuso horário UTC e no horário de verão e no horário de verão
++ `sunset`: `5:05:55 PM` (string) - Data hora no fuso horário UTC e no horário de verão
++ `solar_noon`: `12:16:28 PM` (string) - Data hora no fuso horário UTC e no horário de verão
++ `day_length`: `9:38:53` (string) - Duração do dia
++ `civil_twilight_begin`: `6:58:14 AM` (string) - Data hora no fuso horário UTC e no horário de verão
++ `civil_twilight_end`: `5:34:43 PM` (string) - Data hora no fuso horário UTC e no horário de verão
++ `nautical_twilight_begin`: `6:25:47 AM` (string) - Data hora no fuso horário UTC e no horário de verão
++ `nautical_twilight_end`: `6:07:10 PM` (string) - Data hora no fuso horário UTC e no horário de verão
++ `astronomical_twilight_begin`: `5:54:14 AM` (string) - Data hora no fuso horário UTC e no horário de verão
++ `astronomical_twilight_end`: `6:38:43 PM` (string) - Data hora no fuso horário UTC e no horário de verão

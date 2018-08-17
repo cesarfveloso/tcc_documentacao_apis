@@ -1,0 +1,193 @@
+openapi: '3.0.0'
+info:
+  title: 'Sunset and Sunrise Times API'
+  description: 'Essa API gratuita fornece os horários do nascer e 
+                do pôr do sol dada uma latitude e longitude'
+  termsOfService: 'https://sunrise-sunset.org/terms'
+  contact:
+    name: 'Contate-nos'
+    url: 'https://sunrise-sunset.org/contact'
+  license: 
+    name: 'A API Sunrise and Sunset pode ser utilizada gratuitamente.
+           Você não pode utilizar essa API de forma que exceda um volume
+           razóavel de requisições, que constitua excesso ou abuso do uso. 
+           Nós pedimos que você mostre um link para o nosso site.'
+  version: '1.0'
+servers:
+  - url: 'https://api.sunrise-sunset.org'
+  #- url: 'https://{environment}.api.sunrise-sunset.org'
+  #  variables:
+  #    environment:
+  #      default: 'prd'
+paths:
+  /json: 
+    get:
+      tags: 
+        - 'Horários do nascer e do pôr do sol'
+      summary: 'Retorna os horários do nascer e do pôr do sol'
+      description: 'Esse operador retorna um objeto com informações 
+                    dos horários do nascer e do pôr do sol dada uma 
+                    certa latitude e longitude informada'
+      operationId: GetSunriseSunsetTimes
+      parameters:
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lng'
+        - $ref: '#/components/parameters/date'
+        - $ref: '#/components/parameters/callback'
+        - $ref: '#/components/parameters/formatted'
+      responses:
+        200:
+          description: 'Indica que nenhum erro ocorreu'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200'
+        400:
+          description: 'Indica que os parâmetros lat e lng não 
+                        foram informados ou são inválidos'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        500:
+          description: 'Indica que a requisição não foi processada
+                        pelo servidor'
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/500'
+
+components:
+  schemas:
+    200:
+      title: 'Sucesso ao realizar a operação'
+      type: object
+      properties:
+        results:
+          $ref: '#/components/schemas/results'
+        status: 
+          type: string
+          description: 'Status da requisição'
+          example: 'OK'
+    400:
+      title: 'Erro nos parâmetros informados'
+      type: object
+      properties:
+        results:
+          type: string
+          description: 'String vazia'
+        status: 
+          type: string
+          description: 'Status da requisição'
+          example: 'INVALID_REQUEST ou INVALID_DATE'
+    500:
+      title: 'Erro interno no servidor'
+      type: object
+      properties:
+        results:
+          type: string
+          description: 'String vazia'
+        status: 
+          type: string
+          description: 'Status da requisição'
+          example: 'UNKNOWN_ERROR'
+    results:
+      type: object
+      description: 'Um objeto com o resultado obtido pela requisição'
+      properties: 
+        sunrise: 
+          type: string
+          description: 'Data hora no fuso horário UTC e no horário de verão 
+                        e no horário de verão'
+          example: '7:27:02 AM'
+        sunset: 
+          type: string
+          description: 'Data hora no fuso horário UTC e no horário de verão'
+          example: '5:05:55 PM'
+        solar_noon: 
+          type: string
+          description: 'Data hora no fuso horário UTC e no horário de verão'
+          example: '12:16:28 PM'
+        day_length: 
+          type: string
+          description: 'Duração do dia'
+          example: '9:38:53'
+        civil_twilight_begin: 
+          type: string
+          description: 'Data hora no fuso horário UTC e no horário de verão'
+          example: '6:58:14 AM'
+        civil_twilight_end: 
+          type: string
+          description: 'Data hora no fuso horário UTC e no horário de verão'
+          example: '5:34:43 PM'
+        nautical_twilight_begin: 
+          type: string
+          description: 'Data hora no fuso horário UTC e no horário de verão'
+          example: '6:25:47 AM'
+        nautical_twilight_end: 
+          type: string
+          description: 'Data hora no fuso horário UTC e no horário de verão'
+          example: '6:07:10 PM'
+        astronomical_twilight_begin: 
+          type: string
+          description: 'Data hora no fuso horário UTC e no horário de verão'
+          example: '5:54:14 AM'
+        astronomical_twilight_end: 
+          type: string
+          description: 'Data hora no fuso horário UTC e no horário de verão'
+          example: '6:38:43 PM'
+  parameters:
+    lat:
+      name: 'lat'
+      in: 'query'
+      description: 'Latitude no formato decimal'
+      required: true
+      schema:
+        type: 'number'
+
+    lng:
+      name: 'lng'
+      in: 'query'
+      description: 'Longitude no formato decimal'
+      required: true
+      schema:
+        type: 'number'
+
+    date:
+      name: 'date'
+      in: 'query'
+      description: 'Datas no formato YYYY-MM-DD. Também são aceitos os
+                    formatos apresentados
+                    <a href="http://php.net/manual/en/datetime.formats.date.php">aqui</a> e
+                    <a href="http://php.net/manual/en/datetime.formats.relative.php">aqui</a>.
+                    Se não informado será considerado a data corrente'
+      required: false
+      schema:
+        type: 'string'
+
+    callback:
+      name: 'callback'
+      in: 'query'
+      description: 'Função chamada no callback da resposta'
+      required: false
+      schema:
+        type: 'string'
+
+    formatted:
+      name: 'formatted'
+      in: 'query'
+      description: 'Define se a resposta será formatada. Se 0 não será,
+                    se 1 os valores de data serão mostrados no padrão ISO 8601
+                    e a duração do dia em segundos. Se não informado será 
+                    considerado o valor 1'
+      required: false
+      schema:
+        type: 'integer'
+
+#security:
+tags:
+  - name: 'Horários do nascer e do pôr do sol'
+    description: 'Detalhes sobre os horários do nascer e do pôr do sol'
+externalDocs:
+  description: 'Documentação da API pelos desenvolvedores'
+  url: 'https://sunrise-sunset.org/api'

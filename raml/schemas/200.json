@@ -1,0 +1,67 @@
+{
+    "title": "Sucesso ao realizar a operação",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "object",
+            "properties": {
+                "sunrise": {
+                    "type": "string",
+                    "description": "Data hora no fuso horário UTC e no horário de verão e no horário de verão",
+                    "example": "7:27:02 AM"
+                },
+                "sunset": {
+                    "type": "string",
+                    "description": "Data hora no fuso horário UTC e no horário de verão",
+                    "example": "5:05:55 PM"
+                },
+                "solar_noon": {
+                    "type": "string",
+                    "description": "Data hora no fuso horário UTC e no horário de verão",
+                    "example": "12:16:28 PM"
+                },
+                "day_length": {
+                    "type": "string",
+                    "description": "Duração do dia",
+                    "example": "9:38:53"
+                },
+                "civil_twilight_begin": {
+                    "type": "string",
+                    "description": "Data hora no fuso horário UTC e no horário de verão",
+                    "example": "6:58:14 AM"
+                },
+                "civil_twilight_end": {
+                    "type": "string",
+                    "description": "Data hora no fuso horário UTC e no horário de verão",
+                    "example": "5:34:43 PM"
+                },
+                "nautical_twilight_begin": {
+                    "type": "string",
+                    "description": "Data hora no fuso horário UTC e no horário de verão",
+                    "example": "6:25:47 AM"
+                },
+                "nautical_twilight_end": {
+                    "type": "string",
+                    "description": "Data hora no fuso horário UTC e no horário de verão",
+                    "example": "6:07:10 PM"
+                },
+                "astronomical_twilight_begin": {
+                    "type": "string",
+                    "description": "Data hora no fuso horário UTC e no horário de verão",
+                    "example": "5:54:14 AM"
+                },
+                "astronomical_twilight_end": {
+                    "type": "string",
+                    "description": "Data hora no fuso horário UTC e no horário de verão",
+                    "example": "6:38:43 PM"
+                }
+            },
+            "description": "Um objeto com o resultado obtido pela requisição"
+        },
+        "status": {
+            "type": "string",
+            "description": "Status da requisição",
+            "example": "OK"
+        }
+    }
+}

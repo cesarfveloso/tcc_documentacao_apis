@@ -1,0 +1,16 @@
+{
+    "title": "Erro nos parâmetros informados",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "description": "String vazia",
+            "example": ""
+        },
+        "status": {
+            "type": "string",
+            "description": "Status da requisição",
+            "example": "INVALID_REQUEST ou INVALID_DATE"
+        }
+    }
+}

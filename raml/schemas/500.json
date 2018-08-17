@@ -1,0 +1,16 @@
+{
+    "title": "Erro interno no servidor",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "description": "String vazia",
+            "example": ""
+        },
+        "status": {
+            "type": "string",
+            "description": "Status da requisição",
+            "example": "UNKNOWN_ERROR"
+        }
+    }
+}

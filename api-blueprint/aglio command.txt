@@ -1,0 +1,2 @@
+aglio -i api-blueprint/apiblueprint_SunsetSunrise.apib --theme-full-width --no-theme-condense -s
+aglio -i api-blueprint/apiblueprint_SunsetSunrise.apib --theme-full-width --no-theme-condense -o api-blueprint/index.html

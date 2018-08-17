@@ -1,0 +1,84 @@
+#%RAML 1.0
+title: Sunset and Sunrise Times API
+description: |
+  Essa API gratuita fornece os horarios do nascer do sol e do por do sol 
+  dada uma latitude e longitude
+version: v1
+baseUri: https://api.sunrise-sunset.org
+documentation:
+ - title: Documentacao da API pelos desenvolvedores
+   content: https://sunrise-sunset.org/api
+ - title: Licenca
+   content: |
+      A API Sunrise and Sunset pode ser utilizada gratuitamente.
+      Voce nao pode utilizar essa API de forma que exceda um volume
+      razoavel de requisicoes, que constitua excesso ou abuso do uso. 
+      Nos pedimos que voce mostre um link para o nosso site.
+ - title: Contate-nos
+   content: https://sunrise-sunset.org/contact
+ - title: Termos de Servicos
+   content: https://sunrise-sunset.org/terms
+types:
+  type200: !include datatypes/200.dataType.raml
+  type400: !include datatypes/400.dataType.raml
+  type500: !include datatypes/500.dataType.raml
+/json:
+  description: Recurso principal da API
+  get:
+    description: | 
+      Esse operador retorna um objeto com informacoes dos horarios do nascer e do 
+      por do sol dada uma certa latitude e longitude informada
+    queryParameters:
+      lat:
+        description: Latitude no formato decimal
+        type: number
+        required: true
+        example: 36.7201600
+      lng:
+        description: Longitude no formato decimal
+        type: number
+        required: true
+        example: -4.4203400
+      date:
+        description: |
+          Datas no formato YYYY-MM-DD. Também sao aceitos os formatos apresentados 
+          <a href="http://php.net/manual/en/datetime.formats.date.php">aqui</a> e 
+          <a href="http://php.net/manual/en/datetime.formats.relative.php">aqui</a>. 
+          Se nao informado sera considerado a data corrente
+        type: string
+        required: false
+        example: today
+      callback:
+        description: Funcao chamada no callback da resposta
+        type: string
+        required: false
+        example: myCallback
+      formatted:
+        description: |
+          Define se a resposta sera formatada. Se 0 nao sera, se 1 os valores de data 
+          serao mostrados no padrao ISO 8601 e a duracao do dia em segundos. Se nao 
+          informado sera considerado o valor 1
+        type: number
+        required: false
+        example: 0
+    responses:
+      200:
+        description: Indica que nenhum erro ocorreu
+        body:
+          application/json:
+            type: type200
+            example: !include samples/200.sample.json
+      400:
+        description: |
+          Indica que os parâmetros lat e lng nao foram informados ou 
+          sao invalidos
+        body:
+          application/json:
+            type: type400
+            example: !include samples/400.sample.json
+      500:
+        description: Indica que a requisicao nao foi processada pelo servidor
+        body:
+          application/json:
+            type: type500
+            example: !include samples/500.sample.json
